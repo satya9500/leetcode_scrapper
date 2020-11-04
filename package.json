@@ -1,0 +1,32 @@
+{
+  "name": "leetcode_scrapper",
+  "version": "1.0.0",
+  "description": "A scrapper to fetch your solved leetcode questions and their respective optimal solutions as submitted by you.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satya9500/leetcode_scrapper.git"
+  },
+  "keywords": [
+    "leetcode",
+    "leetchdoe",
+    "scrapper",
+    "leetcode",
+    "api"
+  ],
+  "author": "Satya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satya9500/leetcode_scrapper/issues"
+  },
+  "homepage": "https://github.com/satya9500/leetcode_scrapper#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "dotenv": "^8.2.0",
+    "request": "^2.88.2",
+    "selenium-webdriver": "^4.0.0-alpha.7"
+  }
+}
