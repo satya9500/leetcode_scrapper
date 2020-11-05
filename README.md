@@ -32,3 +32,5 @@ password = 'your_password_here'
 3. Extract links of such questions and store in array.
 4. Now loop in array and find submitted codes.
 5. Make a new directory codes/ and write all the solved question's solution there.
+
+P.S : I know code quality can be improved. I will do that in next commits :p.
