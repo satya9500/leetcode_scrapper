@@ -2,7 +2,7 @@
 
 This is a web scrapper made for the purpose of extracting your solved question from leetcode.
 
-<img src="demo.gif" width="500" height="500"  alt=""/>
+<img src="demo.gif" width="800" height="600"  alt=""/>
 
 ### Requirements
 1. Mozilla Firefox
