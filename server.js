@@ -46,7 +46,7 @@ require('dotenv').config();
                 }
                 questionName = questionName.slice(1,questionName.length);
                 await driver.get(`${solvedQuestion}/submissions/`);
-                driver.wait(function() {
+                await driver.wait(function() {
                     return driver.executeScript('return document.readyState').then(function(readyState) {
                         return readyState === 'complete';
                     });
