@@ -1,13 +1,12 @@
 const {Builder, By, Key, until} = require('selenium-webdriver');
+let fs = require('fs');
+let dir = './codes';
 require('dotenv').config();
 
-function array_diff(a, b) {
-    return a.filter(function(value) {
-        return (b.indexOf(value) === -1);
-    });
-}
-
 (async function example() {
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
     let driver = await new Builder().forBrowser('firefox').build();
     try {
         //sign in to leetcode
@@ -47,7 +46,19 @@ function array_diff(a, b) {
                 }
                 questionName = questionName.slice(1,questionName.length);
                 await driver.get(`${solvedQuestion}/submissions/`);
-                const submission = await driver.findElement(By.css('#app > div > div.main__2_tD > div.content__3fR6 > div > div.side-tools-wrapper__1TS9 > div > div.css-9z7f7i-Container.e5i1odf0 > div.css-jtoecv > div > div.tab-pane__ncJk.css-xailxq-TabContent.e5i1odf5 > div > div > div > div > div > div > div > div > div > table > tbody > tr:nth-child(1) > td.status-column__3SUg > a'));
+                driver.wait(function() {
+                    return driver.executeScript('return document.readyState').then(function(readyState) {
+                        return readyState === 'complete';
+                    });
+                });
+                let submission;
+                try {
+                    submission = await driver.findElement(By.tagName('tbody'));
+                } catch (e) {
+                    console.log(e);
+                    continue;
+                }
+                submission = submission.findElement(By.css('tr:nth-child(1) > td.status-column__3SUg > a'));
                 const submissionLink = await submission.getAttribute('href');
                 await driver.get(`${submissionLink}`);
                 const codeBlock = await driver.findElement(By.xpath('/html/body/div[2]/div/div[1]/div/div[2]/div[7]/div/div[3]/div/div/div[3]/div/div[3]'));
@@ -55,10 +66,13 @@ function array_diff(a, b) {
                 const codeLanguageElement = await driver.findElement(By.xpath('//*[@id="result_language"]'));
                 const codeLanguage = await codeLanguageElement.getText();
                 console.log(questionName, mycode, codeLanguage);
-                break;
+                let createStream = fs.createWriteStream(`codes/${questionName}.${codeLanguage}`);
+                createStream.end();
+                let writeStream = fs.createWriteStream(`codes/${questionName}.${codeLanguage}`);
+                writeStream.write(`${mycode}`);
+                writeStream.end();
             }
         }, 8000)
-
     } catch (e) {
         console.log(e);
         await driver.quit();
